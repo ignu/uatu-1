@@ -56,7 +56,7 @@ module Uatu
       response = request(method_name, options, conn_options)
       parsed_body = JSON.parse(response.body)
 
-      self.last_request_url = response.env.url.to_s
+      self.last_request_url = response.to_hash[:url].to_s
 
       output = parsed_body['data']['results'].map do |resource_hash|
         "Uatu::#{method_name.split('_').last.classify}".constantize.new(resource_hash)
